@@ -41,18 +41,16 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl max-w-lg w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-card rounded-xl border border-border shadow-xl max-w-lg w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
-          <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-            Settings
-          </h2>
+        <div className="flex items-center justify-between p-6 border-b border-border">
+          <h2 className="text-xl font-semibold text-foreground">Settings</h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-accent transition-colors"
             aria-label="Close settings"
           >
-            <XMarkIcon className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+            <XMarkIcon className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 

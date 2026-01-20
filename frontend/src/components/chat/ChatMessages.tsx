@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useMemo } from "react";
 import type { AllMessage } from "../../types";
 import {
   isChatMessage,
@@ -9,6 +9,7 @@ import {
   isThinkingMessage,
   isTodoMessage,
 } from "../../types";
+import { useSettings } from "../../hooks/useSettings";
 import {
   ChatMessageComponent,
   SystemMessageComponent,
@@ -29,6 +30,14 @@ interface ChatMessagesProps {
 export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const { hideSystemMessages } = useSettings();
+
+  // Filter out system and result messages if setting is enabled
+  // Note: isSystemMessage covers type: "system", "result", and "error"
+  const filteredMessages = useMemo(() => {
+    if (!hideSystemMessages) return messages;
+    return messages.filter((msg) => !isSystemMessage(msg));
+  }, [messages, hideSystemMessages]);
 
   // Auto-scroll to bottom
   const scrollToBottom = () => {
@@ -79,15 +88,15 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   return (
     <div
       ref={messagesContainerRef}
-      className="flex-1 overflow-y-auto bg-white/70 dark:bg-slate-800/70 border border-slate-200/60 dark:border-slate-700/60 p-3 sm:p-6 mb-3 sm:mb-6 rounded-2xl shadow-sm backdrop-blur-sm flex flex-col"
+      className="flex-1 overflow-y-auto bg-card/70 border border-border/60 p-3 sm:p-6 mb-3 sm:mb-6 rounded-2xl shadow-sm backdrop-blur-sm flex flex-col"
     >
-      {messages.length === 0 ? (
+      {filteredMessages.length === 0 ? (
         <EmptyState />
       ) : (
         <>
           {/* Spacer div to push messages to the bottom */}
           <div className="flex-1" aria-hidden="true"></div>
-          {messages.map(renderMessage)}
+          {filteredMessages.map(renderMessage)}
           {isLoading && <LoadingComponent />}
           <div ref={messagesEndRef} />
         </>
@@ -98,7 +107,7 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
 
 function EmptyState() {
   return (
-    <div className="flex-1 flex items-center justify-center text-center text-slate-500 dark:text-slate-400">
+    <div className="flex-1 flex items-center justify-center text-center text-muted-foreground">
       <div>
         <div className="text-6xl mb-6 opacity-60">
           <span role="img" aria-label="chat icon">

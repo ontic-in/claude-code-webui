@@ -43,8 +43,8 @@ interface ChatMessageComponentProps {
 export function ChatMessageComponent({ message }: ChatMessageComponentProps) {
   const isUser = message.role === "user";
   const colorScheme = isUser
-    ? "bg-blue-600 text-white"
-    : "bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100";
+    ? "bg-[var(--brand-purple)] text-[var(--brand-purple-foreground)]"
+    : "bg-muted text-foreground";
 
   return (
     <MessageContainer
@@ -54,7 +54,7 @@ export function ChatMessageComponent({ message }: ChatMessageComponentProps) {
       <div className="mb-2 flex items-center justify-between gap-4">
         <div
           className={`text-xs font-semibold opacity-90 ${
-            isUser ? "text-blue-100" : "text-slate-600 dark:text-slate-400"
+            isUser ? "text-white/80" : "text-muted-foreground"
           }`}
         >
           {isUser ? "User" : "Claude"}
@@ -62,7 +62,7 @@ export function ChatMessageComponent({ message }: ChatMessageComponentProps) {
         <TimestampComponent
           timestamp={message.timestamp}
           className={`text-xs opacity-70 ${
-            isUser ? "text-blue-200" : "text-slate-500 dark:text-slate-500"
+            isUser ? "text-white/70" : "text-muted-foreground"
           }`}
         />
       </div>
@@ -127,12 +127,12 @@ export function SystemMessageComponent({
       label={getLabel()}
       details={details}
       badge={"subtype" in message ? message.subtype : undefined}
-      icon={<span className="bg-blue-400 dark:bg-blue-500">⚙</span>}
+      icon={<span className="bg-[var(--brand-purple)]">⚙</span>}
       colorScheme={{
-        header: "text-blue-800 dark:text-blue-300",
-        content: "text-blue-700 dark:text-blue-300",
-        border: "border-blue-200 dark:border-blue-700",
-        bg: "bg-blue-50/80 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800",
+        header: "text-[var(--brand-purple)]",
+        content: "text-foreground/80",
+        border: "border-[var(--brand-purple)]/30",
+        bg: "bg-[var(--brand-purple)]/5 border border-[var(--brand-purple)]/20",
       }}
     />
   );
@@ -384,15 +384,12 @@ export function TodoMessageComponent({ message }: TodoMessageComponentProps) {
 
 export function LoadingComponent() {
   return (
-    <MessageContainer
-      alignment="left"
-      colorScheme="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100"
-    >
-      <div className="text-xs font-semibold mb-2 opacity-90 text-slate-600 dark:text-slate-400">
+    <MessageContainer alignment="left" colorScheme="bg-muted text-foreground">
+      <div className="text-xs font-semibold mb-2 opacity-90 text-muted-foreground">
         Claude
       </div>
       <div className="flex items-center gap-2 text-sm">
-        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-4 h-4 border-2 border-[var(--brand-purple)] border-t-transparent rounded-full animate-spin"></div>
         <span className="animate-pulse">Thinking...</span>
       </div>
     </MessageContainer>

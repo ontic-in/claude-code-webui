@@ -44,11 +44,11 @@ export function getSettings(): AppSettings {
     null,
   );
 
-  if (unifiedSettings && unifiedSettings.version === CURRENT_SETTINGS_VERSION) {
+  if (unifiedSettings) {
     return unifiedSettings;
   }
 
-  // If no unified settings or outdated version, migrate from legacy format
+  // If no unified settings, migrate from legacy format
   return migrateLegacySettings();
 }
 
@@ -75,6 +75,7 @@ function migrateLegacySettings(): AppSettings {
   const migratedSettings: AppSettings = {
     theme: legacyTheme,
     enterBehavior: legacyEnterBehavior,
+    hideSystemMessages: false,
     version: CURRENT_SETTINGS_VERSION,
   };
 

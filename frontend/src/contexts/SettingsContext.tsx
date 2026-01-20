@@ -48,16 +48,30 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     });
   }, [settings.enterBehavior, updateSettings]);
 
+  const toggleHideSystemMessages = useCallback(() => {
+    updateSettings({
+      hideSystemMessages: !settings.hideSystemMessages,
+    });
+  }, [settings.hideSystemMessages, updateSettings]);
+
   const value = useMemo(
     (): SettingsContextType => ({
       settings,
       theme: settings.theme,
       enterBehavior: settings.enterBehavior,
+      hideSystemMessages: settings.hideSystemMessages ?? false,
       toggleTheme,
       toggleEnterBehavior,
+      toggleHideSystemMessages,
       updateSettings,
     }),
-    [settings, toggleTheme, toggleEnterBehavior, updateSettings],
+    [
+      settings,
+      toggleTheme,
+      toggleEnterBehavior,
+      toggleHideSystemMessages,
+      updateSettings,
+    ],
   );
 
   return (

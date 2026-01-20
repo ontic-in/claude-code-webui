@@ -434,7 +434,7 @@ export function ChatPage() {
   }, [isLoading, currentRequestId, handleAbort]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       <div className="max-w-6xl mx-auto p-3 sm:p-6 h-screen flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between mb-4 sm:mb-8 flex-shrink-0">
@@ -442,19 +442,21 @@ export function ChatPage() {
             {isHistoryView && (
               <button
                 onClick={handleBackToChat}
-                className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all duration-200 backdrop-blur-sm shadow-sm hover:shadow-md"
+                className="p-2 rounded-lg bg-card/80 border border-border hover:bg-accent transition-all duration-200 backdrop-blur-sm shadow-sm hover:shadow-md"
                 aria-label="Back to chat"
+                title="Back to chat"
               >
-                <ChevronLeftIcon className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <ChevronLeftIcon className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
             {isLoadedConversation && (
               <button
                 onClick={handleBackToHistory}
-                className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-all duration-200 backdrop-blur-sm shadow-sm hover:shadow-md"
+                className="p-2 rounded-lg bg-card/80 border border-border hover:bg-accent transition-all duration-200 backdrop-blur-sm shadow-sm hover:shadow-md"
                 aria-label="Back to history"
+                title="Back to history"
               >
-                <ChevronLeftIcon className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                <ChevronLeftIcon className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
             <div>
@@ -462,7 +464,7 @@ export function ChatPage() {
                 <div className="flex items-center">
                   <button
                     onClick={handleBackToProjects}
-                    className="text-slate-800 dark:text-slate-100 text-lg sm:text-3xl font-bold tracking-tight hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 rounded-md px-1 -mx-1"
+                    className="text-foreground text-lg sm:text-3xl font-bold tracking-tight hover:text-[var(--brand-purple)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--brand-purple)] focus:ring-offset-2 dark:focus:ring-offset-background rounded-md px-1 -mx-1"
                     aria-label="Back to project selection"
                   >
                     Claude Code Web UI
@@ -470,14 +472,14 @@ export function ChatPage() {
                   {(isHistoryView || sessionId) && (
                     <>
                       <span
-                        className="text-slate-800 dark:text-slate-100 text-lg sm:text-3xl font-bold tracking-tight mx-3 select-none"
+                        className="text-foreground text-lg sm:text-3xl font-bold tracking-tight mx-3 select-none"
                         aria-hidden="true"
                       >
                         {" "}
                         ›{" "}
                       </span>
                       <h1
-                        className="text-slate-800 dark:text-slate-100 text-lg sm:text-3xl font-bold tracking-tight"
+                        className="text-foreground text-lg sm:text-3xl font-bold tracking-tight"
                         aria-current="page"
                       >
                         {isHistoryView
@@ -492,13 +494,13 @@ export function ChatPage() {
                 <div className="flex items-center text-sm font-mono mt-1">
                   <button
                     onClick={handleBackToProjectChat}
-                    className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 rounded px-1 -mx-1 cursor-pointer"
+                    className="text-muted-foreground hover:text-[var(--brand-purple)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--brand-purple)] focus:ring-offset-2 dark:focus:ring-offset-background rounded px-1 -mx-1 cursor-pointer"
                     aria-label={`Return to new chat in ${workingDirectory}`}
                   >
                     {workingDirectory}
                   </button>
                   {sessionId && (
-                    <span className="ml-2 text-xs text-slate-600 dark:text-slate-400">
+                    <span className="ml-2 text-xs text-muted-foreground">
                       Session: {sessionId.substring(0, 8)}...
                     </span>
                   )}
@@ -523,8 +525,8 @@ export function ChatPage() {
           /* Loading conversation history */
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <div className="w-8 h-8 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-slate-600 dark:text-slate-400">
+              <div className="w-8 h-8 border-2 border-border border-t-[var(--brand-purple)] rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-muted-foreground">
                 Loading conversation history...
               </p>
             </div>
@@ -533,9 +535,9 @@ export function ChatPage() {
           /* Error loading conversation history */
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center max-w-md">
-              <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-[var(--status-error-bg)] rounded-full flex items-center justify-center">
                 <svg
-                  className="w-8 h-8 text-red-500"
+                  className="w-8 h-8 text-[var(--status-error-text)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -548,15 +550,15 @@ export function ChatPage() {
                   />
                 </svg>
               </div>
-              <h2 className="text-slate-800 dark:text-slate-100 text-xl font-semibold mb-2">
+              <h2 className="text-foreground text-xl font-semibold mb-2">
                 Error Loading Conversation
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+              <p className="text-muted-foreground text-sm mb-4">
                 {historyError}
               </p>
               <button
                 onClick={() => navigate({ search: "" })}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-[var(--brand-purple)] text-[var(--brand-purple-foreground)] rounded-lg hover:bg-[var(--brand-purple-light)] transition-colors"
               >
                 Start New Conversation
               </button>

@@ -14,7 +14,7 @@ function renderPermissionContent(patterns: string[]): JSX.Element {
   // Handle empty patterns array
   if (patterns.length === 0) {
     return (
-      <p className="text-slate-600 dark:text-slate-300 mb-3">
+      <p className="text-foreground/80 mb-3">
         Claude wants to use bash commands, but the specific commands could not
         be determined.
       </p>
@@ -29,14 +29,14 @@ function renderPermissionContent(patterns: string[]): JSX.Element {
 
     return (
       <>
-        <p className="text-slate-600 dark:text-slate-300 mb-2">
+        <p className="text-foreground/80 mb-2">
           Claude wants to use the following commands:
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
           {commandNames.map((cmd, index) => (
             <span
               key={index}
-              className="font-mono bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded text-sm"
+              className="font-mono bg-muted px-2 py-1 rounded text-sm"
             >
               {cmd}
             </span>
@@ -47,9 +47,9 @@ function renderPermissionContent(patterns: string[]): JSX.Element {
   } else {
     const commandName = extractCommandName(patterns[0]);
     return (
-      <p className="text-slate-600 dark:text-slate-300 mb-3">
+      <p className="text-foreground/80 mb-3">
         Claude wants to use the{" "}
-        <span className="font-mono bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded text-sm">
+        <span className="font-mono bg-muted px-2 py-1 rounded text-sm">
           {commandName}
         </span>{" "}
         command.
@@ -169,13 +169,13 @@ export function PermissionInputPanel({
   ]);
 
   return (
-    <div className="flex-shrink-0 px-4 py-4 bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-xl backdrop-blur-sm shadow-sm">
+    <div className="flex-shrink-0 px-4 py-4 bg-card/80 border border-border rounded-xl backdrop-blur-sm shadow-sm">
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 bg-amber-100 dark:bg-amber-900/20 rounded-lg">
-          <ExclamationTriangleIcon className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+        <div className="p-2 bg-[var(--status-warning-bg)] rounded-lg">
+          <ExclamationTriangleIcon className="w-5 h-5 text-[var(--status-warning-text)]" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h3 className="text-lg font-semibold text-foreground">
           Permission Required
         </h3>
       </div>
@@ -183,7 +183,7 @@ export function PermissionInputPanel({
       {/* Content */}
       <div className="mb-4">
         {renderPermissionContent(patterns)}
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <p className="text-sm text-muted-foreground">
           Do you want to proceed? (Press ESC to deny)
         </p>
       </div>
@@ -211,7 +211,7 @@ export function PermissionInputPanel({
             "allow",
             `w-full p-3 rounded-lg cursor-pointer transition-all duration-200 text-left focus:outline-none ${
               effectiveSelectedOption === "allow"
-                ? "bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-500 dark:border-blue-400 shadow-sm"
+                ? "bg-[var(--brand-purple)]/10 border-2 border-[var(--brand-purple)] shadow-sm"
                 : "border-2 border-transparent"
             }`,
           )}
@@ -219,8 +219,8 @@ export function PermissionInputPanel({
           <span
             className={`text-sm font-medium ${
               effectiveSelectedOption === "allow"
-                ? "text-blue-700 dark:text-blue-300"
-                : "text-slate-700 dark:text-slate-300"
+                ? "text-[var(--brand-purple)]"
+                : "text-foreground/80"
             }`}
           >
             Yes
@@ -248,7 +248,7 @@ export function PermissionInputPanel({
             "allowPermanent",
             `w-full p-3 rounded-lg cursor-pointer transition-all duration-200 text-left focus:outline-none ${
               effectiveSelectedOption === "allowPermanent"
-                ? "bg-green-50 dark:bg-green-900/20 border-2 border-green-500 dark:border-green-400 shadow-sm"
+                ? "bg-[var(--status-success-bg)] border-2 border-[var(--status-success-text)] shadow-sm"
                 : "border-2 border-transparent"
             }`,
           )}
@@ -256,8 +256,8 @@ export function PermissionInputPanel({
           <span
             className={`text-sm font-medium ${
               effectiveSelectedOption === "allowPermanent"
-                ? "text-green-700 dark:text-green-300"
-                : "text-slate-700 dark:text-slate-300"
+                ? "text-[var(--status-success-text)]"
+                : "text-foreground/80"
             }`}
           >
             {renderPermanentButtonText(patterns)}
@@ -285,7 +285,7 @@ export function PermissionInputPanel({
             "deny",
             `w-full p-3 rounded-lg cursor-pointer transition-all duration-200 text-left focus:outline-none ${
               effectiveSelectedOption === "deny"
-                ? "bg-slate-50 dark:bg-slate-800 border-2 border-slate-400 dark:border-slate-500 shadow-sm"
+                ? "bg-muted border-2 border-border shadow-sm"
                 : "border-2 border-transparent"
             }`,
           )}
@@ -293,8 +293,8 @@ export function PermissionInputPanel({
           <span
             className={`text-sm font-medium ${
               effectiveSelectedOption === "deny"
-                ? "text-slate-800 dark:text-slate-200"
-                : "text-slate-700 dark:text-slate-300"
+                ? "text-foreground"
+                : "text-foreground/80"
             }`}
           >
             No
